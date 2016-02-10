@@ -1,0 +1,30 @@
+Metadata-Version: 1.1
+Name: pyladies-digest
+Version: 0.1
+Summary: Command line tool to create a MailChimp template for PyLadies chapters
+Home-page: https://github.com/lorenanicole/chicago-pyladies-digest
+Author: Lorena Mesa
+Author-email: me@lorenamesa.com
+License: BSD
+Description: # chicago-pyladies-digest
+        
+        Currently includes a Python script for pulling the latest Python tech events in Chicago and saving to a CSV.
+        
+        Can define an optional `meetup_key` in a `config.yml` file else can pass one in:
+        
+        ```
+        python meetup_events.py --location Chicago --text python --category 34
+        ```
+        
+        To create a MailChimp template define an optional `mailchimp_key` in a `config.yml`:
+        
+        ```
+        python email_template.py --template-name example6 --month Feb. --year 2016 --data career
+        ```
+        
+        
+Keywords: pyladies email digest mailchimp
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Topic :: PyLadies Open Source Tool
+Classifier: License :: OSI Approved :: BSD License

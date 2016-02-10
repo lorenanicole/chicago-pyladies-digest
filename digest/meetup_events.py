@@ -1,11 +1,16 @@
+#!/usr/bin/env python
+
 import json
 import requests
 import yaml
 from datetime import datetime, timedelta
 import csv
 from argparse import ArgumentParser
+import os
 
 BASE_URL = 'https://api.meetup.com/'
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
 
 def date_within_num_days(utc_offset, utctimestamp, days=30):
     utctimestamp = (int(utctimestamp) + int(utc_offset)) / 1000.0
@@ -19,7 +24,7 @@ def utc_timestamp_to_datetime_string(utc_offset, utctimestamp):
 
 if __name__ == "__main__":
 
-    with open("config.yml", 'r') as stream:
+    with open("{0}/config.yml".format(BASE_DIR), 'r') as stream:
         doc = yaml.load(stream)
 
 
@@ -73,7 +78,7 @@ if __name__ == "__main__":
             events[group_name]['group'] = d.get('group').get('name')
             events[group_name].pop('id')
 
-    with open('events.csv', 'w') as python_events:
+    with open('{0}/data/events.csv'.format(ROOT_DIR), 'w') as python_events:
         headers = events.get(events.keys()[0]).keys()
 
         writer = csv.DictWriter(python_events, fieldnames=headers)

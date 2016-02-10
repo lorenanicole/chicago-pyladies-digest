@@ -1,0 +1,39 @@
+#!/usr/local/opt/python/bin/python2.7
+from digest import config, email_template
+from argparse import ArgumentParser
+import random
+
+if __name__ == '__main__':
+
+    parser = ArgumentParser()
+    parser.add_argument(
+        '--option', metavar='str', type=str,
+         help='Meetup API key')
+    parser.add_argument(
+        '--meetup_key', default=None, metavar='str', type=str,
+         help='Meetup API key')
+    parser.add_argument(
+        '--mailchimp_key', default=None, metavar='str', type=str,
+         help='Mailchimp API key')
+    parser.add_argument(
+        '--template-name', default=str(random.randint(0, 9999999)), metavar='str', type=str,
+         help='template name')
+    parser.add_argument(
+        '--month', metavar='str', type=str,
+         help='month digest producing')
+    parser.add_argument(
+        '--year', metavar='str', type=str,
+         help='year digest product')
+    parser.add_argument(
+        '--key', default=None, metavar='str', type=str,
+         help='Mailchimp API key')
+    parser.add_argument(
+        '--data', default=['career', 'conferences', 'events', 'miscellaneous', 'volunteer'], metavar='list', type=list,
+         help='Data to include in digest e.g. career, conferences, events, miscellaneous, volunteer')
+
+    args = parser.parse_args().__dict__
+
+    if args.get('option') == 'config':
+        config.main(args.get('meetup_key'), args.get('mailchimp_key'))
+    elif args.get('option') == 'generate_template':
+        email_template.main(args)
