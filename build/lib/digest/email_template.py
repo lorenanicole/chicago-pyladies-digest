@@ -59,7 +59,7 @@ def main(args):
                                    events=data.get('events'), conferences=data.get('conferences'),
                                    miscellaneous=data.get('miscellaneous'), volunteer=data.get('volunteer'),
                                    career=data.get('career'))
-            f.write(html)
+            f.write(html.encode('utf-8'))
 
     f = codecs.open('{0}/output.html'.format(BASE_DIR), 'r', 'utf-8')
     template_html = "".join(line for line in f.read())

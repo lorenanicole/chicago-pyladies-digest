@@ -613,7 +613,7 @@
 <strong style="line-height:20.8px"><span style="line-height:1.6em">Upcoming Python Conferences (and CFPs!):</span></strong><br>
 <div id="conferences">
     {% for conf in conferences %}
-    <span style="line-height:20.8px">{{ conf.get('date') }} |&nbsp;<a href="{{ conf.get('url') }}" target="_blank">{{ conf.get('name').decode('utf-8') }} ({{conf.get('location') }})&nbsp;</a>
+    <span style="line-height:20.8px">{{ conf.get('date') }} |&nbsp;<a href="{{ conf.get('url') }}" target="_blank">{{ conf.get('name') }} ({{conf.get('location') }})&nbsp;</a>
         {% if conf.get('cfp') == True %}
         &nbsp;- CFP Due <a href="{{ conf.get('cfp_url') }}" target="_blank">{{ conf.get('cfp_deadline') }}</a>&nbsp;
         {% endif %}

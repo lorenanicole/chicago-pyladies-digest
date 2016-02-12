@@ -25,7 +25,7 @@ def render_template(template_filename, month=None, year=None, conferences=None, 
     return TEMPLATE_ENVIRONMENT.get_template(template_filename).render(month=month, year=year, conferences=conferences, events=events, miscellaneous=miscellaneous, volunteer=volunteer, career=career)
 
 def main(args):
-    print "here are args , ", args
+
     if not args.get('key'):
         with open("{0}/config.yml".format(BASE_DIR), 'r') as stream:
             doc = yaml.load(stream)
@@ -59,7 +59,7 @@ def main(args):
                                    events=data.get('events'), conferences=data.get('conferences'),
                                    miscellaneous=data.get('miscellaneous'), volunteer=data.get('volunteer'),
                                    career=data.get('career'))
-            f.write(html)
+            f.write(html.encode('utf-8'))
 
     f = codecs.open('{0}/output.html'.format(BASE_DIR), 'r', 'utf-8')
     template_html = "".join(line for line in f.read())
