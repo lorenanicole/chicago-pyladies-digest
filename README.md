@@ -20,8 +20,10 @@ To scrape Lanyard for upcoming conferences and conference CFPs you can provide a
 pyladies-digest --option scrape_confs --calls python --topic python
 ```
 
-To generate and post a template to MailChimp will need to provide a month, year. By default an email digest will include the following categories - career, conference, events, miscellaneous, and volunteer.
+To generate and post a template to MailChimp will need to provide a month, year. By default an email digest will include the following categories - career, conference, events, miscellaneous, and volunteer. If you want to
+update the data (notes on data format below) used in the digest, provide a location of the new data file for the respective type (e.g. `--career /Users/lm/desktop/career.csv`).
 ```
-pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016
-pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --data career conferences
+pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago
+pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --data career conferences
+pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --career /Users/lm/desktop/career.csv --misc /Users/lm/desktop/misceallaneous.csv --volunteer /Users/lm/desktop/volunteer.csv
 ```

@@ -597,12 +597,12 @@
                         
                         <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
                         
-                            <h1><span style="line-height:1.6em">Chicago PyLadies </span>{{ month }}<span style="line-height:1.6em"> {{ year }} Digest</span></h1>
+                            <h1><span style="line-height:1.6em">{{ city }} PyLadies </span>{{ month }}<span style="line-height:1.6em"> {{ year }} Digest</span></h1>
 
-<p>Have a topic you'd like to see in the monthly digest or an event / opportunity we missed? Email us at&nbsp;<a href="mailto:chicago@pyladies.com?subject=Chicago%20PyLadies%20Digest&amp;body=Hi%20Chicago%20PyLadies%2C%0A%0AI'd%20like%20to%20include%3A%0A*%20%3CPut%20item%20here%3E%0A%0AThanks%2C%0A%0A%3CYour%20contact%20info%20please!%3E" target="_blank">chicago@pyladies.com</a><br>
+<p>Have a topic you'd like to see in the monthly digest or an event / opportunity we missed? Email us at&nbsp;<a href="mailto:{{ city }}@pyladies.com?subject={{ city }}%20PyLadies%20Digest&amp;body=Hi%{{ city }}%20PyLadies%2C%0A%0AI'd%20like%20to%20include%3A%0A*%20%3CPut%20item%20here%3E%0A%0AThanks%2C%0A%0A%3CYour%20contact%20info%20please!%3E" target="_blank">{{ city }}@pyladies.com</a><br>
 <br>
 {% if events != None %}
-<strong style="line-height:20.8px"><span style="line-height:1.6em">Upcoming Chicago Python Events:</span></strong><br>
+<strong style="line-height:20.8px"><span style="line-height:1.6em">Upcoming {{ city }} Python Events:</span></strong><br>
 <div id="events">
     {% for event in events %}
     <span style="line-height:20.8px"> {{ event.get('date') }} | <a href="{{ event.get('event_url') }}" style="line-height: 20.8px;" target="_blank"> {{ event.get('name') }} </a><br>
@@ -625,7 +625,7 @@
 </div><br>
 {% endif %}
 {% if career != None %}
-<strong style="line-height:20.8px"><span style="line-height:1.6em">Chicago Python Career Opportunities:</span></strong><br>
+<strong style="line-height:20.8px"><span style="line-height:1.6em">{{ city }} Python Career Opportunities:</span></strong><br>
     <div id="career">
     {% for opt in career %}
     <i style="line-height:20.8px">{{ opt.get('title') }}&nbsp;</i><br>
@@ -634,7 +634,7 @@
     </div>
 {% endif %}
 {% if volunteer != None %}
-    <strong style="line-height:20.8px"><span style="line-height:1.6em">Chicago Python Volunteer&nbsp;Opportunities:</span></strong><br>
+    <strong style="line-height:20.8px"><span style="line-height:1.6em">{{ city }} Python Volunteer&nbsp;Opportunities:</span></strong><br>
     <div id="volunteer">
     {% for v in volunteer %}
     {{ v.get('text') }} <a href="{{ v.get('contact_url') }}" target="_blank">{{ v.get('contact_text') }}</a>&nbsp;<br><br>

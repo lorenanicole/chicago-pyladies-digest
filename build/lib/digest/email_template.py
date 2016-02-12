@@ -9,6 +9,7 @@ import csv
 from jinja2 import Environment, FileSystemLoader
 import random
 import os
+import shutil
 
 __author__ = 'lorenamesa'
 
@@ -21,11 +22,26 @@ TEMPLATE_ENVIRONMENT = Environment(
     loader=FileSystemLoader('{0}/templates'.format(ROOT_DIR)),
     trim_blocks=False)
 
-def render_template(template_filename, month=None, year=None, conferences=None, events=None, miscellaneous=None, volunteer=None, career=None):
-    return TEMPLATE_ENVIRONMENT.get_template(template_filename).render(month=month, year=year, conferences=conferences, events=events, miscellaneous=miscellaneous, volunteer=volunteer, career=career)
+def render_template(template_filename, month=None, year=None, conferences=None, events=None, miscellaneous=None, volunteer=None, career=None, city=None):
+    return TEMPLATE_ENVIRONMENT.get_template(template_filename).render(month=month, year=year, conferences=conferences,
+                                                                       events=events, miscellaneous=miscellaneous,
+                                                                       volunteer=volunteer, career=career, city=city)
+def copy_files(career, miscellaneous, volunteer):
+    print 'copy possibilities, ', career, miscellaneous, volunteer
+    copy_files = [{'file': career, 'type': 'career'},
+                  {'file': miscellaneous, 'type': 'miscellaneous'},
+                  {'file': volunteer, 'type': 'volunteer'}]
+
+    copy_files = filter(lambda item: item.get('file') != None, copy_files)
+    print 'here are resulting files, ', copy_files
+
+    for file in copy_files:
+        print 'copying: ', file, ' to ', '{0}/data/{1}.csv'.format(ROOT_DIR, file.get('type'))
+        shutil.copy2(file.get('file'), '{0}/data/{1}.csv'.format(ROOT_DIR, file.get('type')))
+
 
 def main(args):
-    print "here are args , ", args
+
     if not args.get('key'):
         with open("{0}/config.yml".format(BASE_DIR), 'r') as stream:
             doc = yaml.load(stream)
@@ -41,6 +57,8 @@ def main(args):
 
     v2_base_url = BASE_URL.format(MAILCHIMP_KEY[dc_indx+1:], '3.0')
     v3_base_url = 'https://{0}.api.mailchimp.com/{1}'.format(MAILCHIMP_KEY[dc_indx+1:], '2.0')
+
+    copy_files(args.get('career'), args.get('misc'), args.get('volunteer'))
 
     data = {}
 
@@ -58,7 +76,7 @@ def main(args):
             html = render_template('template.html', month=args.get('month'), year=args.get('year'),
                                    events=data.get('events'), conferences=data.get('conferences'),
                                    miscellaneous=data.get('miscellaneous'), volunteer=data.get('volunteer'),
-                                   career=data.get('career'))
+                                   career=data.get('career'), city=data.get('city'))
             f.write(html.encode('utf-8'))
 
     f = codecs.open('{0}/output.html'.format(BASE_DIR), 'r', 'utf-8')

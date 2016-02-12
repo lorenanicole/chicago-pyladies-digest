@@ -32,6 +32,18 @@ if __name__ == '__main__':
     parser.add_argument(
         '--data', default=['career', 'conferences', 'events', 'miscellaneous', 'volunteer'], nargs='*',
          help='Data to include in digest e.g. career, conferences, events, miscellaneous, volunteer')
+    parser.add_argument(
+        '--city', default="Chicago", metavar='str', type=str,
+         help='City name to appear in email template e.g. Chicago')
+    parser.add_argument(
+        '--career', default=None, metavar='str', type=str,
+         help='Location of csv file with career information, file must be named career.csv')
+    parser.add_argument(
+        '--volunteer', default=None, metavar='str', type=str,
+         help='Location of csv file with volunteer information, file must be named volunteer.csv')
+    parser.add_argument(
+        '--misc', default=None, metavar='str', type=str,
+         help='Location of csv file with miscelleanous information, file must be named misceallaneous.csv')
 
     # Args for generating events data
     parser.add_argument(
