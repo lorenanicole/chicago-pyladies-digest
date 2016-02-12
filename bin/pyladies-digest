@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from digest import config, email_template
+from digest import config, email_template, meetup_events
 from argparse import ArgumentParser
 import random
 
@@ -12,6 +12,8 @@ if __name__ == '__main__':
     parser.add_argument(
         '--meetup_key', default=None, metavar='str', type=str,
          help='Meetup API key')
+
+    # Args for generating Mail Chimp template
     parser.add_argument(
         '--mailchimp_key', default=None, metavar='str', type=str,
          help='Mailchimp API key')
@@ -28,12 +30,36 @@ if __name__ == '__main__':
         '--key', default=None, metavar='str', type=str,
          help='Mailchimp API key')
     parser.add_argument(
-        '--data', default=['career', 'conferences', 'events', 'miscellaneous', 'volunteer'], metavar='list', type=list,
+        '--data', default=['career', 'conferences', 'events', 'miscellaneous', 'volunteer'], nargs='*',
          help='Data to include in digest e.g. career, conferences, events, miscellaneous, volunteer')
+
+    # Args for generating events data
+    parser.add_argument(
+        '--category', default='34', metavar='str', type=str,
+         help='category as defined by MeetUp API http://www.meetup.com/meetup_api/data/2/categories/')
+    parser.add_argument(
+        '--location', default='Chicago', metavar='str', type=str,
+         help='location to query group events for e.g. Chicago')
+    parser.add_argument(
+        '--text', default='python', metavar='str', type=str,
+         help='text to query group events for e.g. Python')
+    parser.add_argument(
+        '--m_key', default=None, metavar='str', type=str,
+         help='MeetUp API key https://secure.meetup.com/meetup_api/key/')
+
+    # Args for generating conference data
+    parser.add_argument(
+        '--topic', default=['python'],  nargs='*', help='Lanyrd conference topic query')
+    parser.add_argument(
+        '--calls', default=['python'],  nargs='*', help='Lanyrd CFPs calls query')
 
     args = parser.parse_args().__dict__
 
     if args.get('option') == 'config':
         config.main(args.get('meetup_key'), args.get('mailchimp_key'))
-    elif args.get('option') == 'generate_template':
+    elif args.get('option') == 'template':
         email_template.main(args)
+    elif args.get('option') == 'scrape_events':
+        meetup_events.main(args)
+    elif args.get('option') == 'scrape_confs':
+        conferences.main(args)

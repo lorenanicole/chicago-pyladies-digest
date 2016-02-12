@@ -10,6 +10,8 @@ from jinja2 import Environment, FileSystemLoader
 import random
 import os
 
+__author__ = 'lorenamesa'
+
 BASE_URL = 'https://{0}.api.mailchimp.com/{1}'
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, os.pardir))
@@ -23,7 +25,7 @@ def render_template(template_filename, month=None, year=None, conferences=None, 
     return TEMPLATE_ENVIRONMENT.get_template(template_filename).render(month=month, year=year, conferences=conferences, events=events, miscellaneous=miscellaneous, volunteer=volunteer, career=career)
 
 def main(args):
-
+    print "here are args , ", args
     if not args.get('key'):
         with open("{0}/config.yml".format(BASE_DIR), 'r') as stream:
             doc = yaml.load(stream)
@@ -32,7 +34,6 @@ def main(args):
 
     else:
         MAILCHIMP_KEY = args.get('key')
-
 
     # mailchimp api datacenter
     # http://developer.mailchimp.com/documentation/mailchimp/guides/get-started-with-mailchimp-api-3/
@@ -45,11 +46,12 @@ def main(args):
 
     for item in args.get('data'):
         try:
+            print "processing {0}".format(item)
             with open('{0}/data/{1}.csv'.format(ROOT_DIR, item), 'r') as datafile:
                 reader = csv.DictReader(datafile)
                 data[item] = [row for row in reader]
         except Exception as e:
-            print "Couldn't process {0}".format(item)
+            print "Couldn't process {0} | {1}".format(item, e.message)
             raise SystemExit
 
     with open('{0}/output.html'.format(BASE_DIR), 'w') as f:
@@ -63,7 +65,6 @@ def main(args):
     template_html = "".join(line for line in f.read())
 
     payload = {'name': args.get('template_name'), 'html': template_html}
-
     response = requests.post(v3_base_url + '/templates/add.format?apikey={0}'.format(MAILCHIMP_KEY), data=payload)
     template_response = json.loads(response.content)
 

@@ -1,9 +1,17 @@
+MANIFEST.in
 setup.py
 bin/pyladies-digest
+data/career.csv
+data/conferences.csv
+data/events.csv
+data/miscellaneous.csv
+data/volunteer.csv
 digest/__init__.py
+digest/conferences.py
 digest/config.py
 digest/email_template.py
 digest/meetup_events.py
+digest/serializers.py
 pyladies_digest.egg-info/PKG-INFO
 pyladies_digest.egg-info/SOURCES.txt
 pyladies_digest.egg-info/dependency_links.txt

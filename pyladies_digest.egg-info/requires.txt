@@ -3,3 +3,4 @@ requests
 pyyaml
 jinja2
 datetime
+beautifulsoup4

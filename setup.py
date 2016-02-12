@@ -22,7 +22,9 @@ setup(
     keywords="pyladies email digest mailchimp",
     install_requires=[str(ir.req) for ir in install_reqs],
     url="https://github.com/lorenanicole/chicago-pyladies-digest",
-    packages=find_packages(),
+    packages=['digest', 'data', 'templates'],
+    include_package_data=True,
+    package_data={'templates':['*'], 'data':['*']},
     long_description=read('README.md'),
     scripts=[
         'bin/pyladies-digest',
