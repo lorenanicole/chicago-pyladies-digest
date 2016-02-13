@@ -1,2 +1,3 @@
 include data/*
-include template/*
+include templates/*
+include README.md

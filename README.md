@@ -23,7 +23,15 @@ pyladies-digest --option scrape_confs --calls python --topic python
 To generate and post a template to MailChimp will need to provide a month, year. By default an email digest will include the following categories - career, conference, events, miscellaneous, and volunteer. If you want to
 update the data (notes on data format below) used in the digest, provide a location of the new data file for the respective type (e.g. `--career /Users/lm/desktop/career.csv`).
 ```
-pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago
-pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --data career conferences
+pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --fb https://www.facebook.com/Chicago-PyLadies-303889346486875/?ref=aymt_homepage_panel
+pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --data career conferences --fb https://www.facebook.com/Chicago-PyLadies-303889346486875/?ref=aymt_homepage_panel --tw http://www.twitter.com/pyladieschicago
 pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --career /Users/lm/desktop/career.csv --misc /Users/lm/desktop/misceallaneous.csv --volunteer /Users/lm/desktop/volunteer.csv
 ```
+
+###Data Format
+
+*Career*: `title,description,contact_url,contact_text`
+*Conferences*: `date,name,location,url,cfp,cfp_url,cfp_deadline,fa,fa_url,fa_deadline`
+*Events*: `date,event_url,group,name`
+*Miscellaneous*: `text,contact_url,contact_text`
+*Volunteer*: `text,contact_url,contact_text`

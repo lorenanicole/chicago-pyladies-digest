@@ -8,7 +8,7 @@ if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument(
         '--option', metavar='str', type=str,
-         help='Meetup API key')
+         help='config, template, scrape_events, scrape_confs')
     parser.add_argument(
         '--meetup_key', default=None, metavar='str', type=str,
          help='Meetup API key')
@@ -44,6 +44,15 @@ if __name__ == '__main__':
     parser.add_argument(
         '--misc', default=None, metavar='str', type=str,
          help='Location of csv file with miscelleanous information, file must be named misceallaneous.csv')
+    parser.add_argument(
+        '--fb', default='https://www.facebook.com/pyladies/', metavar='str', type=str,
+        help='Facebook link to include in email template')
+    parser.add_argument(
+        '--tw', default='https://www.twitter.com/pyladies/', metavar='str', type=str,
+        help='Twitter link to include in email template')
+    parser.add_argument(
+        '--organizers', nargs='*',
+        help='List of organizers and contact info e.g. Lorena Mesa https://twitter.com/loooorenanicole')
 
     # Args for generating events data
     parser.add_argument(

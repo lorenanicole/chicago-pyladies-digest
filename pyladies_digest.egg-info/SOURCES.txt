@@ -1,4 +1,5 @@
 MANIFEST.in
+README.md
 setup.py
 bin/pyladies-digest
 data/career.csv
@@ -17,3 +18,4 @@ pyladies_digest.egg-info/SOURCES.txt
 pyladies_digest.egg-info/dependency_links.txt
 pyladies_digest.egg-info/requires.txt
 pyladies_digest.egg-info/top_level.txt
+templates/template.html

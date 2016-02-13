@@ -545,7 +545,7 @@
                         
                         <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-left:18px; padding-bottom:9px; padding-right:0;">
                         
-                            Use this area to offer a short preview of your email's content.
+                            Get the latest in {{ city }} Python events. Want to share something? Email us at&nbsp;<a href="mailto:{{ city }}@pyladies.com?subject={{ city }}%20PyLadies%20Digest&amp;body=Hi%{{ city }}%20PyLadies%2C%0A%0AI'd%20like%20to%20include%3A%0A*%20%3CPut%20item%20here%3E%0A%0AThanks%2C%0A%0A%3CYour%20contact%20info%20please!%3E" target="_blank">{{ city }}@pyladies.com</a>
                         </td>
                     </tr>
                 </tbody></table>
@@ -700,7 +700,7 @@
                                                                         <tbody><tr>
                                                                             
                                                                                 <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-                                                                                    <a href="http://www.twitter.com/pyladieschicago" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
+                                                                                    <a href="{{ tw }}" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display:block;" height="24" width="24" class=""></a>
                                                                                 </td>
                                                                             
                                                                             
@@ -732,7 +732,7 @@
                                                                         <tbody><tr>
                                                                             
                                                                                 <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-                                                                                    <a href="https://www.facebook.com/Chicago-PyLadies-303889346486875/?ref=aymt_homepage_panel" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
+                                                                                    <a href="{{ fb }}" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display:block;" height="24" width="24" class=""></a>
                                                                                 </td>
                                                                             
                                                                             
@@ -764,7 +764,7 @@
                                                                         <tbody><tr>
                                                                             
                                                                                 <td align="center" valign="middle" width="24" class="mcnFollowIconContent">
-                                                                                    <a href="http://chicago.pyladies.com" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;" height="24" width="24" class=""></a>
+                                                                                    <a href="http://{{ city }}.pyladies.com" target="_blank"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;" height="24" width="24" class=""></a>
                                                                                 </td>
                                                                             
                                                                             
@@ -825,8 +825,13 @@
                     <tbody><tr>
                         
                         <td valign="top" class="mcnTextContent" style="padding-top:9px; padding-right: 18px; padding-bottom: 9px; padding-left: 18px;">
-                        
-                            Organized by <a href="http://www.twitter.com/loooorenanicole" target="_blank">Lorena Mesa</a> &amp; <a href="http://www.twitter.com/jlunrein" target="_blank">Jess Unrein&nbsp;</a><br>
+                            {% if organizers != None %}
+                            Organized by
+                                {% for o in organizers %}
+                                    <a href="{{ o.get('contact') }}" target="_blank"> {{ o.get('name') }} </a>
+                                {% endfor %}
+                            <br>
+                            {% endif %}
 <br>
 Want to change how you receive these emails?<br>
 You can <a href="*|UPDATE_PROFILE|*">update your preferences</a> or <a href="*|UNSUB|*">unsubscribe from this list</a><br>

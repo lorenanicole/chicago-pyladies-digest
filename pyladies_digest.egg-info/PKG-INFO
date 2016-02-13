@@ -1,11 +1,11 @@
 Metadata-Version: 1.1
 Name: pyladies-digest
-Version: 0.1
+Version: 0.31
 Summary: Command line tool to create a MailChimp template for PyLadies chapters
 Home-page: https://github.com/lorenanicole/chicago-pyladies-digest
 Author: Lorena Mesa
 Author-email: me@lorenamesa.com
-License: BSD
+License: MIT
 Description: # chicago-pyladies-digest
         
         Python project to scrape data from MeetUp and Lanyard for generating a MailChimp template for a PyLadies email digest.
@@ -31,12 +31,19 @@ Description: # chicago-pyladies-digest
         To generate and post a template to MailChimp will need to provide a month, year. By default an email digest will include the following categories - career, conference, events, miscellaneous, and volunteer. If you want to
         update the data (notes on data format below) used in the digest, provide a location of the new data file for the respective type (e.g. `--career /Users/lm/desktop/career.csv`).
         ```
-        pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago
-        pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --data career conferences
+        pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --fb https://www.facebook.com/Chicago-PyLadies-303889346486875/?ref=aymt_homepage_panel
+        pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --data career conferences --fb https://www.facebook.com/Chicago-PyLadies-303889346486875/?ref=aymt_homepage_panel --tw http://www.twitter.com/pyladieschicago
         pyladies-digest --option template --template-name feb_digest --month Feb. --year 2016 --city Chicago --career /Users/lm/desktop/career.csv --misc /Users/lm/desktop/misceallaneous.csv --volunteer /Users/lm/desktop/volunteer.csv
         ```
+        
+        ###Data Format
+        
+        *Career*: `title,description,contact_url,contact_text`
+        *Conferences*: `date,name,location,url,cfp,cfp_url,cfp_deadline,fa,fa_url,fa_deadline`
+        *Events*: `date,event_url,group,name`
+        *Miscellaneous*: `text,contact_url,contact_text`
+        *Volunteer*: `text,contact_url,contact_text`
 Keywords: pyladies email digest mailchimp
 Platform: UNKNOWN
-Classifier: Development Status :: 3 - Alpha
-Classifier: Topic :: PyLadies Open Source Tool
-Classifier: License :: OSI Approved :: BSD License
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2.7

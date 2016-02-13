@@ -5,7 +5,6 @@ import requests
 import yaml
 from datetime import datetime, timedelta
 import csv
-from argparse import ArgumentParser
 import os
 
 BASE_URL = 'https://api.meetup.com/'

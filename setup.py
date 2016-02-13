@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import uuid
-from setuptools import setup, find_packages
+from setuptools import setup
 import os
 from pip.req import parse_requirements
 
@@ -14,27 +14,23 @@ install_reqs = parse_requirements(reqs_file, session=uuid.uuid1())
 
 setup(
     name="pyladies-digest",
-    version="0.1",
+    version="0.31",
     author="Lorena Mesa",
     author_email="me@lorenamesa.com",
     description=("Command line tool to create a MailChimp template for PyLadies chapters"),
-    license="BSD",
+    license="MIT",
     keywords="pyladies email digest mailchimp",
-    install_requires=[str(ir.req) for ir in install_reqs],
+    install_requires=["argparse", "requests", "pyyaml", "jinja2", "datetime", "beautifulsoup4"],
     url="https://github.com/lorenanicole/chicago-pyladies-digest",
     packages=['digest', 'data', 'templates'],
     include_package_data=True,
-    package_data={'templates':['*'], 'data':['*']},
+    package_data={'templates': ['*'], 'data': ['*']},
     long_description=read('README.md'),
     scripts=[
         'bin/pyladies-digest',
-    #     'bin/bambu-stem-test',
-    #     'bin/bambu-crawl',
-    #     'bin/bambu-curate'
     ],
     classifiers=[
-        "Development Status :: 3 - Alpha",
-        "Topic :: PyLadies Open Source Tool",
-        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 2.7"
     ],
 )

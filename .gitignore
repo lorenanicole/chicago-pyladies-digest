@@ -3,3 +3,4 @@
 config.yml
 digest/*.yml
 *.pyc
+.pypirc

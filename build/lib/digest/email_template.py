@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 
-from argparse import ArgumentParser
 import requests
 import yaml
 import json
 import codecs
 import csv
 from jinja2 import Environment, FileSystemLoader
-import random
 import os
 import shutil
 
@@ -22,23 +20,33 @@ TEMPLATE_ENVIRONMENT = Environment(
     loader=FileSystemLoader('{0}/templates'.format(ROOT_DIR)),
     trim_blocks=False)
 
-def render_template(template_filename, month=None, year=None, conferences=None, events=None, miscellaneous=None, volunteer=None, career=None, city=None):
+def render_template(template_filename, month=None, year=None, conferences=None, events=None, miscellaneous=None, volunteer=None, career=None, city=None, fb=None, tw=None, organizers=None):
     return TEMPLATE_ENVIRONMENT.get_template(template_filename).render(month=month, year=year, conferences=conferences,
                                                                        events=events, miscellaneous=miscellaneous,
-                                                                       volunteer=volunteer, career=career, city=city)
+                                                                       volunteer=volunteer, career=career, city=city,
+                                                                       fb=fb, tw=tw, organizers=organizers)
 def copy_files(career, miscellaneous, volunteer):
-    print 'copy possibilities, ', career, miscellaneous, volunteer
     copy_files = [{'file': career, 'type': 'career'},
                   {'file': miscellaneous, 'type': 'miscellaneous'},
                   {'file': volunteer, 'type': 'volunteer'}]
 
     copy_files = filter(lambda item: item.get('file') != None, copy_files)
-    print 'here are resulting files, ', copy_files
 
     for file in copy_files:
-        print 'copying: ', file, ' to ', '{0}/data/{1}.csv'.format(ROOT_DIR, file.get('type'))
+        print 'copying: ', file.get('file')
         shutil.copy2(file.get('file'), '{0}/data/{1}.csv'.format(ROOT_DIR, file.get('type')))
 
+def parse_organizers(organizers):
+    if not organizers:
+        return None
+
+    parsed = []
+
+    for org in range(0, (len(organizers) / 3)):
+        parsed.append({'name': ' '.join(word for word in organizers[org:org+2]),
+                       'contact': organizers[org+2]})
+
+    return parsed
 
 def main(args):
 
@@ -69,14 +77,17 @@ def main(args):
                 reader = csv.DictReader(datafile)
                 data[item] = [row for row in reader]
         except Exception as e:
-            print "Couldn't process {0} | {1}".format(item, e.message)
+            print "Couldn't process {0} - {1} - may not exist. Did you upload/parse the data?".format(item, e.message)
             raise SystemExit
+
+    organizers = parse_organizers(args.get('organizers'))
 
     with open('{0}/output.html'.format(BASE_DIR), 'w') as f:
             html = render_template('template.html', month=args.get('month'), year=args.get('year'),
                                    events=data.get('events'), conferences=data.get('conferences'),
                                    miscellaneous=data.get('miscellaneous'), volunteer=data.get('volunteer'),
-                                   career=data.get('career'), city=data.get('city'))
+                                   career=data.get('career'), city=args.get('city'), fb=args.get('fb'), tw=args.get('tw'),
+                                   organizers=organizers)
             f.write(html.encode('utf-8'))
 
     f = codecs.open('{0}/output.html'.format(BASE_DIR), 'r', 'utf-8')
