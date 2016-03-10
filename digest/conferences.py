@@ -41,7 +41,7 @@ def main(args):
 
         conferences[links[1].get_text()] = Conference(**data)
 
-    topics_q = "+".join(word for word in args.get('topics'))
+    topics_q = "+".join(word for word in args.get('topic'))
 
     response = requests.get(LANYARD_URL + '/topics/{0}/'.format(topics_q))
     soup = BeautifulSoup(response.content)
@@ -76,7 +76,7 @@ def main(args):
 
         if not conference.location:
             location = soup.find('p', class_='prominent-place').get_text()
-            cleaned_location = re.sub(r'\s+', ' ', location)
+            cleaned_location = re.sub(r'\s+', ' ', location).encode('utf-8')
             conference.location = cleaned_location
 
     sorted_conferences = sorted(conferences.values(), key=lambda c: c.date)

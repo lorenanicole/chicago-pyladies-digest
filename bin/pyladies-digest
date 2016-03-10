@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from digest import config, email_template, meetup_events
+from digest import config, email_template, meetup_events, conferences
 from argparse import ArgumentParser
 import random
 
